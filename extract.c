@@ -11,11 +11,7 @@ int main(int argc, char *argv[]) {
     if(argc != 2) {
         fprintf(stderr, "sigzip: No file provided.\n");
         exit(1);
-    } 
-
-    short int number = 0x1;
-    char *numPtr = (char*)&number;
-    int isLittleEndian = (numPtr[0] == 1);
+    }
 
     int fd, offset;
     char *data;
@@ -36,7 +32,7 @@ int main(int argc, char *argv[]) {
 		exit(1);
 	}
 	
-	if ((data = mmap((caddr_t)0, sbuf.st_size, PROT_READ, MAP_SHARED, fd, 0)) == (caddr_t)(-1)) {
+	if ((data = mmap((caddr_t)0, sbuf.st_size, PROT_READ, MAP_PRIVATE, fd, 0)) == (caddr_t)(-1)) {
 		perror("mmap");
 		exit(1);
 	}
@@ -47,13 +43,7 @@ int main(int argc, char *argv[]) {
 		exit(1);
     }
 
-    unsigned short hleng;
-    if (isLittleEndian) {
-        hleng = (short)(((short)data[dfoffset+1]) << 8) | data[dfoffset];
-    } else {
-        hleng = (short)(((short)data[dfoffset]) << 8) | data[dfoffset+1];
-    }
-
+    unsigned short hleng = (short)(((short)data[dfoffset+1]) << 8) | data[dfoffset];
     fwrite(&data[dfoffset+2],sizeof(char),hleng,stdout);
     fflush(stdout);
     munmap(data, sbuf.st_size);
