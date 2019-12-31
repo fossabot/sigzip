@@ -4,12 +4,12 @@
 Usage
 
 ```
-inject source.gz embed.sig > source_signed.gz
+inject source.tar.gz embed.sig > source_signed.tar.gz
 ```
 
 ## `extract`
 Usage
 
 ```
-extract source_signed.gz > embed.sig
+extract source_signed.tar.gz > embed.sig
 ```
