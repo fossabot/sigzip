@@ -10,6 +10,7 @@
 int main(int argc, char *argv[]) {
     if(argc != 3) {
         fprintf(stderr, "sigzip-inject: No files provided.\n");
+        fprintf(stderr, "USAGE: inject GZIP-PATH EMBED-PATH\n");
         exit(1);
     }
 
@@ -28,7 +29,7 @@ int main(int argc, char *argv[]) {
     }
 
     if (sbuf.st_size-1 < 3) {
-		fprintf(stderr, "sigzip: Malformed gzip.\n");
+		fprintf(stderr, "sigzip-inject: Malformed gzip.\n");
 		exit(1);
 	}
 
@@ -44,7 +45,7 @@ int main(int argc, char *argv[]) {
     }
 
     if (dbuf.st_size > UINT16_MAX) {
-        fprintf(stderr, "sigzip: injected file too large, maximum size 64k.\n");
+        fprintf(stderr, "sigzip-inject: injected file too large, maximum size 64k.\n");
 		exit(1);
     }
 
@@ -59,7 +60,7 @@ int main(int argc, char *argv[]) {
 	}
 
     if (data[3] & (1<<2)) {
-        fprintf(stderr, "sigzip: Cannot add signature - data present.\n");
+        fprintf(stderr, "sigzip-inject: Cannot add signature - data present.\n");
 		exit(1);
     }
 

@@ -9,7 +9,8 @@
 
 int main(int argc, char *argv[]) {
     if(argc != 2) {
-        fprintf(stderr, "sigzip: No file provided.\n");
+        fprintf(stderr, "sigzip-extract: No file provided.\n");
+        fprintf(stderr, "USAGE: extract GZIP-PATH\n");
         exit(1);
     }
 
@@ -28,7 +29,7 @@ int main(int argc, char *argv[]) {
     }
 
     if (sbuf.st_size-1 < 3) {
-		fprintf(stderr, "sigzip: Malformed gzip.\n");
+		fprintf(stderr, "sigzip-extract: Malformed gzip.\n");
 		exit(1);
 	}
 	
@@ -39,7 +40,7 @@ int main(int argc, char *argv[]) {
 
     int dfoffset = 10 + (data[3] & (1<<1));
     if (!(data[3] & (1<<2))) {
-        fprintf(stderr, "sigzip: No extra data present.\n");
+        fprintf(stderr, "sigzip-extract: No extra data present.\n");
 		exit(1);
     }
 
