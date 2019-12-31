@@ -1,12 +1,15 @@
 # `sigzip` - A set of utilities to embed signatures into gzips
-WIP. 
+
+## `inject`
+Usage
 
 ```
-cc -o extract extract.c
-./extract test.tar.gz >> output.test.sig
-diff --report-identical-files output.test.sig test.tar.sig
-gunzip test.tar.gz
-gpg --verify output.test.sig
+inject source.gz embed.sig > source_signed.gz
 ```
 
-TODO: injecting signatures.
+## `extract`
+Usage
+
+```
+extract source_signed.gz > embed.sig
+```
